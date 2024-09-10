@@ -29,8 +29,6 @@ def new_message(n_alphabet,message,shift):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     n_message = ""
     
-    # message = message.lower()
-    
     for x in message:
         if x in alphabet:
             index = alphabet.index(x)
