@@ -17,14 +17,9 @@ def rotate(shift):
         n_alphabet = alphabet[-shift:] + alphabet[:-shift]
     else:
         shift = shift % len(alphabet)
-        # print(f'Shift: {shift}')
         n_alphabet = alphabet[-shift:] + alphabet[:-shift]
-        # print(f'Alphabet: {n_alphabet}')
 
     return n_alphabet
-# print(rotate(-89))
-# print(rotate(92))
-# print(rotate(76))
 
 
 def new_message(n_alphabet, message, shift):
@@ -49,9 +44,6 @@ def encrypt(key, message):
     n_message = new_message(n_alphabet, message, key)
 
     return n_message
-# print(encrypt(89, 'helloo'))
-# print(encrypt(92, 'helloo'))
-# print(encrypt(39, 'helloo'))
 
 
 def decrypt(key, message):
@@ -59,9 +51,6 @@ def decrypt(key, message):
     n_message = encrypt(key, message)
 
     return n_message
-# print(decrypt(89, 'QNUUXX'))
-# print(decrypt(92, 'NKRRUU'))
-# print(decrypt(39, 'EBIILL'))
 
 
 def main(todo, key, message):
