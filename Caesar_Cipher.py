@@ -13,7 +13,7 @@ def rotate(shift):
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     n_alphabet = ''
 
-    if shift < len(alphabet):
+    if abs(shift) < len(alphabet):
         n_alphabet = alphabet[-shift:] + alphabet[:-shift]
     else:
         shift = shift % len(alphabet)
@@ -25,9 +25,6 @@ def rotate(shift):
 def new_message(n_alphabet, message, shift):
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     n_message = ""
-
-    if n_alphabet == alphabet:
-        alphabet = rotate(-shift)
 
     for x in message:
         if x in alphabet:
