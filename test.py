@@ -52,7 +52,8 @@ class GetExifTestCase(unittest.TestCase):
         decrypt_msg = decrypt(key, encrypt_msg)
         
         self.assertEqual(decrypt_msg, msg)
-        
+
+    
     def test_index_out_of_range(self):
         sample = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         shift = -68
