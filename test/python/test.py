@@ -32,35 +32,28 @@ class GetExifTestCase(unittest.TestCase):
         print(f'decrypted message: {decrypt_msg}')
 
         self.assertEqual(decrypt_msg, msg)
-    
-    
+
+
     def test_does_rotate_work(self):
         standard_alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         key = -68
-        
+
         alphabet_for_encrypt = rotate(key)
         print(f'New alphabet: {alphabet_for_encrypt}')
-        
+
         self.assertNotEqual(standard_alphabet, alphabet_for_encrypt)
-        
-        
+
+
     def test_broken_case(self):
         key = 68
         msg = 'CQaHMuwpHM9694928708'
-        
+
         encrypt_msg = encrypt(key, msg)
         decrypt_msg = decrypt(key, encrypt_msg)
-        
+
         self.assertEqual(decrypt_msg, msg)
 
-    
-    def test_index_out_of_range(self):
-        sample = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-        shift = -68
-        
-        with self.assertRaises(IndexError):
-            sample[:-shift]
-        
+
 
 if __name__ == '__main__':
     unittest.main()
