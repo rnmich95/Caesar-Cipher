@@ -12,7 +12,7 @@ import random
 from Caesar_Cipher import encrypt, decrypt, rotate
 
 
-class GetExifTestCase(unittest.TestCase):
+class CipherTestCase(unittest.TestCase):
     def test_cipher_with_random_data(self):
         key = random.randint(1, 100)
 
@@ -46,13 +46,12 @@ class GetExifTestCase(unittest.TestCase):
 
     def test_broken_case(self):
         key = 68
-        msg = 'CQaHMuwpHM9694928708'
+        msg = 'Is it broken?'
 
         encrypt_msg = encrypt(key, msg)
         decrypt_msg = decrypt(key, encrypt_msg)
 
-        self.assertEqual(decrypt_msg, msg)
-
+        self.assertEqual(msg, decrypt_msg)
 
 
 if __name__ == '__main__':
