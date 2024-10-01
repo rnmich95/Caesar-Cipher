@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Sep  8 20:47:19 2024
+Created on Sat Sep 28 18:16:42 2024
 
 @author: rnmic
 """
@@ -9,58 +9,45 @@ import argparse
 import traceback
 
 
-def rotate(shift):
-    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    n_alphabet = ''
-
-    if abs(shift) < len(alphabet):
-        n_alphabet = alphabet[-shift:] + alphabet[:-shift]
-    else:
-        shift = shift % len(alphabet)
-        n_alphabet = alphabet[-shift:] + alphabet[:-shift]
-
-    return n_alphabet
+alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 
-def new_message(n_alphabet, message, shift):
-    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    n_message = ""
+def rotate(c, s): return (alphabet.index(c) + s) % len(alphabet)
 
-    for x in message:
-        if x in alphabet:
-            index = alphabet.index(x)
-            n_message += n_alphabet[index]
 
+def msg_processing(msg, shift):
+    outcome = ''
+    for c in msg:
+        if c in alphabet:
+            enc = alphabet[rotate(c, shift)]
+            outcome += enc
         else:
-            n_message += x
-    return n_message
+            outcome += c
+    return outcome
 
 
-def encrypt(key, message):
-    n_alphabet = rotate(key)
-    n_message = new_message(n_alphabet, message, key)
-
-    return n_message
+def encrypt(msg, shift):
+    outcome = msg_processing(msg, shift)
+    return outcome
 
 
-def decrypt(key, message):
-    key = -key
-    n_message = encrypt(key, message)
+def decrypt(msg, shift):
+    shift = -shift
+    outcome = msg_processing(msg, shift)
+    return outcome
 
-    return n_message
 
-
-def main(todo, key, message):
-    if len(message) < 1:
+def main(todo, msg, shift):
+    if len(msg) < 1:
         print("Nothing to do here. There is no message!")
         return
     try:
-        if todo == 'encrypt':
-            n_message = encrypt(key, message)
-            print(n_message)
+        if todo == 'toencrypt':
+            outcome = encrypt(msg, shift)
+            print(outcome)
         else:
-            n_message = decrypt(key, message)
-            print(n_message)
+            outcome = decrypt(msg, shift)
+            print(outcome)
 
     except Exception:
         traceback.print_exc()
@@ -69,10 +56,10 @@ def main(todo, key, message):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--todo', type=str, choices=['decrypt'], default='encrypt',
-                        help='If you want to decrypt a message type "--todo decrypt".')
-    parser.add_argument('--key', type=int, default=0)
-    parser.add_argument('--msg', type=str, default="")
+    parser.add_argument('--todo', type=str, choices=['todecrypt'], default='toencrypt',
+                        help='If you want to decrypt a message type --todo "todecrypt".')
+    parser.add_argument('--m', type=str, default="")
+    parser.add_argument('--k', type=int, default=0)
     args = parser.parse_args()
 
-    main(args.todo, args.key, args.msg)
+    main(args.todo, args.m, args.k)
